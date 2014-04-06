@@ -1,4 +1,8 @@
-//
+//Nash Kleppan
+//Vishal Mehta
+//Patrick OConnor
+//Group 19
+//CSE 220 Spring 2014
 //  Token.h
 //  Lab4
 //
@@ -22,17 +26,17 @@ class Token
 private:
     TokenCode code;
     LiteralType type;
-    union
+    union literal
     {
         int integer;
         float real;
         char *stringLiteral;
-    }
-    literal;
+    };
     string tokenString;
     //What variables and methods am I missing to implement a binary tree.
     
 public:
+	friend class Tree;
     Token();
     ~Token();
     void setCode(TokenCode newCode);

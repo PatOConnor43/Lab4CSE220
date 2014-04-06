@@ -1,6 +1,10 @@
-//
+//Nash Kleppan
+//Vishal Mehta
+//Patrick OConnor
+//Group 19
+//CSE 220 Spring 2014
 //  common.h
-//  Lab3
+//  Lab4
 //
 //  Created by Bryce Holton.
 //

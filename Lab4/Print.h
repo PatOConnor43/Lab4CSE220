@@ -1,4 +1,8 @@
-//
+//Nash Kleppan
+//Vishal Mehta
+//Patrick OConnor
+//Group 19
+//CSE 220 Spring 2014
 //  Print.h
 //  Lab4
 //
@@ -11,6 +15,7 @@
 #include <iostream>
 #include "common.h"
 #include "Token.h"
+#include "linkedlist.h"
 
 using namespace std;
 
@@ -20,13 +25,12 @@ private:
     string sourceFileName;
     string currentDate;
     int pageNumber;
-    
     void printPageHeader();
     
 public:
     Print(char source_name[], char date[]);
     ~Print();
-    
+
     void printLine(char line[]);
     void printToken(Token *token);
 };

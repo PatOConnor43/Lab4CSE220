@@ -1,4 +1,8 @@
-//
+//Nash Kleppan
+//Vishal Mehta
+//Patrick OConnor
+//Group 19
+//CSE 220 Spring 2014
 //  Token.cpp
 //  Lab4
 //

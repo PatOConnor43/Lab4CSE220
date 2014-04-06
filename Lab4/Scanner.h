@@ -1,4 +1,8 @@
-//
+//Nash Kleppan
+//Vishal Mehta
+//Patrick OConnor
+//Group 19
+//CSE 220 Spring 2014
 //  Scanner.h
 //  Lab4
 //
@@ -50,8 +54,8 @@ private:
 public:
     Scanner(FILE *source_file, char source_name[], char date[], Print printer);
     ~Scanner();
-    Token* getToken();
 
+    Token* getToken();
 };
 
 #endif

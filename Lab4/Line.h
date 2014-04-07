@@ -19,7 +19,7 @@ private:
     void setNextLine(Line* next_line);
 
 public:
-    Line();
+    Line(int line_number);
     ~Line();
 
 };

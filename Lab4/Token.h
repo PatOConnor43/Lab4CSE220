@@ -25,11 +25,23 @@ using namespace std;
 class Token
 {
 private:
-    string tokenString;
+     //values for tree
     Token *left;
     Token *right;
     Token *previous;
     Line *reservedLine;
+    
+    string tokenString;
+    
+    TokenCode code; //values for Token
+    LiteralType type;
+    union
+    {
+        int integer;
+        float real;
+        char *stringLiteral;
+    }
+    literal;
     //What variables and methods am I missing to implement a binary tree.
     
 public:
@@ -50,6 +62,21 @@ public:
     
     void setReservedLine(Line *setLine);
     Line* getReservedLine();
+    
+     void setCode(TokenCode newCode);
+    TokenCode getCode();
+    
+    void setType(LiteralType newType);
+    LiteralType getType();
+    
+    void setLiteral(int newInteger);
+    int getIntLiteral();
+    
+    void setLiteral(float newReal);
+    float getRealLiteral();
+    
+    void setLiteral(string newString);
+    string getStringLiteral();
 };
 
 #endif /* defined(__Lab4__Token__) */

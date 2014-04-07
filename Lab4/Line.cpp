@@ -7,10 +7,10 @@
 
 #include "Line.h"
 
-Line::Line()
+Line::Line(int line_number)
 {
-	line_number = 0;
-	next = 0;
+	this->line_number = line_number;
+	this->next = 0;
 }
 Line::~Line()
 {

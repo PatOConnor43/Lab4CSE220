@@ -3,6 +3,7 @@
 //Patrick OConnor
 //Group 19
 //CSE 220 Spring 2014
+//
 //  Token.h
 //  Lab4
 //
@@ -24,35 +25,31 @@ using namespace std;
 class Token
 {
 private:
-    TokenCode code;
-    LiteralType type;
-    union literal
-    {
-        int integer;
-        float real;
-        char *stringLiteral;
-    };
     string tokenString;
+    Token *left;
+    Token *right;
+    Token *previous;
+    Line *reservedLine;
     //What variables and methods am I missing to implement a binary tree.
     
 public:
-	friend class Tree;
     Token();
     ~Token();
-    void setCode(TokenCode newCode);
-    TokenCode getCode();
-    void setType(LiteralType newType);
-    LiteralType getType();
-    void setLiteral(int newInteger);
-    int getIntLiteral();
-    void setLiteral(float newReal);
-    float getRealLiteral();
-    void setLiteral(string newString);
-    string getStringLiteral();
+    
     void setTokenString(string s);
     string getTokenString();
-    void setNextToken(Token *newToken);
-    Token* getNextToken();
+    
+    void setLeftToken(Token *setValue);
+    Token* getLeftToken();
+    
+    void setRightToken(Token *setValue);
+    Token* getRightToken();
+    
+    void setPreviousToken(Token *setValue);
+    Token* getPreviousToken();
+    
+    void setReservedLine(Line *setLine);
+    Line* getReservedLine();
 };
 
 #endif /* defined(__Lab4__Token__) */

@@ -44,6 +44,11 @@ int main(int argc, const char * argv[])
     }
     while (token->getCode() != PERIOD && token->getCode() != END_OF_FILE);
     
+    puts("Cross Reference Information");
+    printf("Identifier\t\t\t\t%s\n", "Line Numbers");
+    printf("----------\t\t\t\t%s\n", "------------");
+    print.printTree(token);
+    
     delete token;
     fclose(source_file);
     return 0;

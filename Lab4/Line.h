@@ -13,15 +13,14 @@ class Line
 private:
     int line_number;
     Line* next;
-    int getLine();
-    Line* getNextLine();
-    void setLineNumber(int new_line_number);
-    void setNextLine(Line* next_line);
 
 public:
     Line(int line_number);
     ~Line();
-
+    int getLineNumber();
+	Line* getNextLine();
+	void setLineNumber(int new_line_number);
+	void setNextLine(Line* next_line);
 };
 
 

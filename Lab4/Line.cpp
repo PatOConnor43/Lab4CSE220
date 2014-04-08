@@ -17,7 +17,7 @@ Line::~Line()
 
 }
 
-int Line::getLine()
+int Line::getLineNumber()
 {
 	return this->line_number;
 }
@@ -36,5 +36,3 @@ void Line::setNextLine(Line* next_line)
 {
 	this->next = next_line;
 }
-
-

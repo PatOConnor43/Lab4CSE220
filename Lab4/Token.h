@@ -1,3 +1,10 @@
+/*
+ * Token.h
+ *
+ *  Created on: Apr 6, 2014
+ *      Author: Vishal
+ */
+
 //Nash Kleppan
 //Vishal Mehta
 //Patrick OConnor
@@ -15,6 +22,7 @@
 
 #include <iostream>
 #include "common.h"
+#include "Line.h"
 
 using namespace std;
 
@@ -30,9 +38,9 @@ private:
     Token *right;
     Token *previous;
     Line *reservedLine;
-    
+
     string tokenString;
-    
+
     TokenCode code; //values for Token
     LiteralType type;
     union
@@ -43,38 +51,38 @@ private:
     }
     literal;
     //What variables and methods am I missing to implement a binary tree.
-    
+
 public:
     Token();
     ~Token();
-    
+
     void setTokenString(string s);
     string getTokenString();
-    
+
     void setLeftToken(Token *setValue);
     Token* getLeftToken();
-    
+
     void setRightToken(Token *setValue);
     Token* getRightToken();
-    
+
     void setPreviousToken(Token *setValue);
     Token* getPreviousToken();
-    
+
     void setReservedLine(Line *setLine);
     Line* getReservedLine();
-    
+
      void setCode(TokenCode newCode);
     TokenCode getCode();
-    
+
     void setType(LiteralType newType);
     LiteralType getType();
-    
+
     void setLiteral(int newInteger);
     int getIntLiteral();
-    
+
     void setLiteral(float newReal);
     float getRealLiteral();
-    
+
     void setLiteral(string newString);
     string getStringLiteral();
 };

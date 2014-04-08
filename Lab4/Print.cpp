@@ -11,6 +11,7 @@
 
 #include "Print.h"
 #include "Token.h"
+#include "Line.h"
 
 const char* const SYMBOL_STRINGS[] =
 {
@@ -33,14 +34,14 @@ Print::Print(char source_name[], char date[])
 }
 Print::~Print()
 {
-    
+
 }
 void Print::printLine(char line[])
 {
     char save_ch = '\0';
     char *save_chp = NULL;
     static int line_count = MAX_LINES_PER_PAGE;
-    
+
     if (++line_count > MAX_LINES_PER_PAGE)
     {
         printPageHeader();
@@ -70,7 +71,7 @@ void Print::printToken(Token *token)
 {
     char line[MAX_SOURCE_LINE_LENGTH + 32];
     const char *symbol_string = SYMBOL_STRINGS[token->getCode()];
-    
+
     switch (token->getCode())
     {
         case NUMBER:
@@ -91,4 +92,29 @@ void Print::printToken(Token *token)
             break;
     }
     printLine(line);
+}
+
+void printTree(Token *tree)
+{
+	if(!tree)
+		return;
+
+	printTree(tree->getLeftToken());
+	string x1 = tree->getTokenString();
+	char *x2 = printLineNumber(tree->getReservedLine());
+	cout << x1 << "\t\t\t\t\t" << x2 << endl;
+
+	printTree(tree->getRightToken());
+}
+
+char* printLineNumber(Line *lineList)
+{
+	Line *tmp = lineList;
+	char *z = new char();
+	while(tmp)
+	{
+		sprintf(z, "%s%d\t", z, tmp->getLineNumber());
+		tmp = tmp->getNextLine();
+	}
+	return z;
 }

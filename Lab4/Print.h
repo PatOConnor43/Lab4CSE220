@@ -1,3 +1,10 @@
+/*
+ * Print.h
+ *
+ *  Created on: Apr 7, 2014
+ *      Author: Vishal
+ */
+
 //Nash Kleppan
 //Vishal Mehta
 //Patrick OConnor
@@ -15,7 +22,7 @@
 #include <iostream>
 #include "common.h"
 #include "Token.h"
-#include "linkedlist.h"
+//#include "linkedlist.h"
 
 using namespace std;
 
@@ -26,13 +33,15 @@ private:
     string currentDate;
     int pageNumber;
     void printPageHeader();
-    
+    char* printLineNumber(Line *lineList);
+
 public:
     Print(char source_name[], char date[]);
     ~Print();
 
     void printLine(char line[]);
     void printToken(Token *token);
+    void printTree(Token *token);
 };
 
 #endif /* defined(__Lab4__Print__) */

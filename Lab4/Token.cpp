@@ -1,3 +1,9 @@
+/*
+ * Token.cpp
+ *
+ *  Created on: Apr 6, 2014
+ *      Author: Vishal
+ */
 //Nash Kleppan
 //Vishal Mehta
 //Patrick OConnor
@@ -19,8 +25,8 @@ Token::Token()
 	right = 0;
 	previous = 0;
 	reservedLine = 0;
-	
-	TokenCode = 0;
+
+	code = 0;
 	type = 0;
 	literal = 0;
 	//What code do I need here to initialize everything.
@@ -58,7 +64,7 @@ void Token::setRightToken(Token* setValue)
 
 Token* Token::getRightToken()
 {
-	return this->previous;
+	return this->right;
 }
 
 void Token::setPreviousToken(Token* setValue)

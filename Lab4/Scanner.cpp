@@ -1,3 +1,10 @@
+/*
+ * Scanner.cpp
+ *
+ *  Created on: Apr 7, 2014
+ *      Author: Vishal
+ */
+
 //Nash Kleppan
 //Vishal Mehta
 //Patrick OConnor
@@ -11,6 +18,7 @@
 
 #include "Scanner.h"
 #include "Print.h"
+#include <cstdlib>
 
 typedef struct
 {
@@ -35,7 +43,7 @@ Scanner::Scanner(FILE *source_file, char source_name[], char date[], Print print
     src_file = source_file;
     strcpy(src_name, source_name);
     strcpy(todays_date, date);
-    
+
     /*******************
      initialize character table, this table is useful for identifying what type of character
      we are looking at by setting our array up to be a copy the ascii table.  Since C thinks of
@@ -59,18 +67,19 @@ Scanner::Scanner(FILE *source_file, char source_name[], char date[], Print print
     }
     char_table['\''] = QUOTE;
     char_table[EOF_CHAR] = EOF_CODE;
-    
+
     line_number = 0;
     source_line[0] = '\0';
+    tree = new Token();
 }
 Scanner::~Scanner()
 {
-    
+
 }
 bool Scanner::getSourceLine(char source_buffer[])
 {
     char print_buffer[MAX_SOURCE_LINE_LENGTH + 9];
-    
+
     if (fgets(source_buffer, MAX_SOURCE_LINE_LENGTH, src_file) != NULL)
     {
         ++line_number;
@@ -89,7 +98,7 @@ Token* Scanner::getToken()
     char token_string[MAX_TOKEN_STRING_LENGTH] = {'\0'}; //Store your token here as you build it.
     char *token_ptr = token_string; //write some code to point this to the beginning of token_string
     Token *new_token = new Token();
-    
+
     //1.  Skip past all of the blanks
     if (line_ptr == NULL)
     {
@@ -97,7 +106,7 @@ Token* Scanner::getToken()
     }
     skipBlanks(source_line);
     ch = *line_ptr;
-    
+
     //2.  figure out which case you are dealing with LETTER, DIGIT, QUOTE, EOF, or special, by examining ch
     switch (char_table[ch])
     {//3.  Call the appropriate function to deal with the cases in 2.
@@ -117,7 +126,7 @@ Token* Scanner::getToken()
             getSpecial(token_string, token_ptr, new_token);
             break;
     }
-    
+
     return new_token; //What should be returned here?
 }
 char Scanner::getChar(char source_buffer[])
@@ -128,7 +137,7 @@ char Scanner::getChar(char source_buffer[])
      set the character ch to EOF and leave the function.
      */
     char ch;
-    
+
     if (*line_ptr == '\0')
     {
         if (!getSourceLine(source_buffer))
@@ -138,7 +147,7 @@ char Scanner::getChar(char source_buffer[])
         }
         line_ptr = source_buffer;
     }
-    
+
     /*
      Write some code to set the character ch to the next character in the buffer
      */
@@ -171,7 +180,7 @@ void Scanner::skipComment(char source_buffer[])
      to the first non blank character.  Watch out for the EOF character.
      */
     char ch;
-    
+
     do
     {
         ch = *line_ptr++;
@@ -190,10 +199,10 @@ void Scanner::getWord(char *str, char *token_ptr, Token *tok)
         ch = *line_ptr;
     }
     *token_ptr = '\0';
-    
+
     //Downshift the word, to make it lower case
     downshiftWord(str);
-    
+
     /*
      Write some code to Check if the word is a reserved word.
      if it is not a reserved word its an identifier.
@@ -212,14 +221,14 @@ void Scanner::getNumber(char *str, char *token_ptr, Token *tok)
      */
     char ch = *line_ptr;
     bool int_type = true;
-    
+
     do
     {
         *(token_ptr++) = ch;
         ch = *(++line_ptr);
     }
     while (char_table[ch] == DIGIT);
-    
+
     if (ch == '.')
     {
         //Then we might have a dot or dotdot
@@ -300,7 +309,7 @@ void Scanner::getSpecial(char *str, char *token_ptr, Token *tok)
      */
     char ch = *line_ptr;
     *token_ptr = ch;
-    
+
     switch (ch)
     {
         case '^':
@@ -445,7 +454,7 @@ void Scanner::downshiftWord(char word[])
      Make all of the characters in the incoming word lower case.
      */
     int index;
-    
+
     for (index = 0; index < strlen(word); index++)
     {
         word[index] = tolower(word[index]);
@@ -457,7 +466,7 @@ bool Scanner::isReservedWord(char *str, Token *tok)
      Examine the reserved word table and determine if the function input is a reserved word.
      */
     size_t str_len = strlen(str);
-    
+
     if (str_len >= 2 && str_len <= 9)
     {
         RwStruct rw = rw_table[str_len - 2][0];
@@ -473,4 +482,41 @@ bool Scanner::isReservedWord(char *str, Token *tok)
         }
     }
     return false;
+}
+
+void Scanner::add_token_to_list(Token *treeHead, Token *new_token)
+{
+	if(treeHead->getTokenString().compare(new_token->getTokenString()) == 0) //Another occurrence of reserved word
+	{
+		addLineToTree(treeHead->getReservedLine(), new_token->getReservedLine());
+	}
+	else if(treeHead->getTokenString().compare(new_token->getTokenString()) > 0)
+	{
+		if(treeHead->getLeftToken() == 0)
+		{
+			treeHead->setLeftToken(new_token);
+			return;
+		}
+		add_token_to_list(treeHead->getLeftToken(), new_token);
+	}
+	else // comparison string value is > 0
+	{
+		if(treeHead->getRightToken() == 0)
+		{
+			treeHead->setRightToken(new_token);
+			return;
+		}
+		add_token_to_list(treeHead->getRightToken(), new_token);
+	}
+}
+
+void Scanner::addLineToTree(Line *head, Line *newLine)
+{
+	Line *tmp = head;
+	while(tmp->getNextLine() != 0)
+	{
+		printf("%d\n", tmp->getLineNumber());
+		tmp = tmp->getNextLine();
+	}
+	tmp->setNextLine(newLine);
 }

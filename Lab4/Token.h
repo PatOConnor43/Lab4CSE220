@@ -23,6 +23,7 @@
 #include <iostream>
 #include "common.h"
 #include "Line.h"
+#include <stdlib.h>
 
 using namespace std;
 
@@ -71,7 +72,7 @@ public:
     void setReservedLine(Line *setLine);
     Line* getReservedLine();
 
-     void setCode(TokenCode newCode);
+    void setCode(TokenCode newCode);
     TokenCode getCode();
 
     void setType(LiteralType newType);

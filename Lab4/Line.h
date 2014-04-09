@@ -18,9 +18,9 @@ public:
     Line(int line_number);
     ~Line();
     int getLineNumber();
-    Line* getNextLine();
-    void setLineNumber(int new_line_number);
-    void setNextLine(Line* next_line);
+	Line* getNextLine();
+	void setLineNumber(int new_line_number);
+	void setNextLine(Line* next_line);
 };
 
 

@@ -32,20 +32,23 @@ int main(int argc, const char * argv[])
     FILE *source_file = init_lister(argv[1], source_name, date);
     Print print(source_name, date);
     Scanner scanner(source_file, source_name, date, print);
-    
+
     do
     {
         token = scanner.getToken();
         print.printToken(token);
-
+        if (token->getCode() != PERIOD && token->getCode() != END_OF_FILE)
+        {
+            delete token;
+        }
     }
-    while (token->getCode() != END_OF_FILE);
-    
+    while (token->getCode() != PERIOD && token->getCode() != END_OF_FILE);
+
     puts("Cross Reference Information");
     printf("Identifier\t\t\t\t%s\n", "Line Numbers");
     printf("----------\t\t\t\t%s\n", "------------");
     print.printTree(scanner.tree);
-    
+
     delete token;
     fclose(source_file);
     return 0;
@@ -54,11 +57,10 @@ FILE *init_lister(const char *name, char source_file_name[], char dte[])
 {
     time_t timer;
     FILE *file;
-    
+
     strcpy(source_file_name, name);
     file = fopen(source_file_name, "r");
     time(&timer);
     strcpy(dte, asctime(localtime(&timer)));
     return file;
 }
-

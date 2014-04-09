@@ -44,7 +44,7 @@ int main(int argc, const char * argv[])
     puts("Cross Reference Information");
     printf("Identifier\t\t\t\t%s\n", "Line Numbers");
     printf("----------\t\t\t\t%s\n", "------------");
-    print.printTree(token);
+    print.printTree(scanner.tree);
     
     delete token;
     fclose(source_file);

@@ -1,10 +1,3 @@
-/*
- * Print.cpp
- *
- *  Created on: Apr 7, 2014
- *      Author: Vishal
- */
-
 //Nash Kleppan
 //Vishal Mehta
 //Patrick OConnor
@@ -108,7 +101,7 @@ void Print::printTree(Token *tree)
 
 	printTree(tree->getLeftToken());
 	string x1 = tree->getTokenString();
-	char *x2 = this->printLineNumber(tree->getReservedLine());
+	char* x2 = printLineNumber(tree->getReservedLine());
 	cout << x1 << "\t\t\t\t\t" << x2 << endl;
 
 	printTree(tree->getRightToken());

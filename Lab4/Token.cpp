@@ -17,6 +17,7 @@
 //
 
 #include "Token.h"
+#include <stdlib.h>
 
 Token::Token()
 {
@@ -26,9 +27,9 @@ Token::Token()
 	previous = 0;
 	reservedLine = 0;
 
-	code = 0;
-	type = 0;
-	literal = 0;
+	code = NO_TOKEN;
+	type = INTEGER_LIT;
+	setLiteral(0);
 	//What code do I need here to initialize everything.
 }
 

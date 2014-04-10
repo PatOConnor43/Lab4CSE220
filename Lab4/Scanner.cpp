@@ -208,10 +208,22 @@ void Scanner::getWord(char *str, char *token_ptr, Token *tok)
      Write some code to Check if the word is a reserved word.
      if it is not a reserved word its an identifier.
      */
+    tok->setTokenString(str);
+    tok->setReservedLine(new Line(line_number));
     if (!isReservedWord(str, tok))
     {
         //set token to identifier
         tok->setCode(IDENTIFIER);
+        if(tree->getTokenString().compare("") == 0)
+        				{
+
+        					tree->setTokenString(tok->getTokenString());
+        					tree->setReservedLine(new Line(line_number));
+        				}
+        				else
+        				{
+        					add_token_to_list(tree, tok);
+        				}
     }
     tok->setTokenString(string(str));
 }
@@ -478,16 +490,6 @@ bool Scanner::isReservedWord(char *str, Token *tok)
             if (strcmp(str, rw.string) == 0)
             {
                 tok->setCode(rw.token_code);
-                tok->setReservedLine(new Line(line_number));
-                if(tree->getTokenString().compare("") == 0)
-				{
-					tree->setTokenString(tok->getTokenString());
-					tree->setReservedLine(new Line(line_number));
-				}
-				else
-				{
-					add_token_to_list(tree, tok);
-				}
                 return true;
             }
         }
@@ -526,7 +528,6 @@ void Scanner::addLineToTree(Line *head, Line *newLine)
 	Line *tmp = head;
 	while(tmp->getNextLine() != 0)
 	{
-		printf("%d\n", tmp->getLineNumber());
 		tmp = tmp->getNextLine();
 	}
 	tmp->setNextLine(newLine);

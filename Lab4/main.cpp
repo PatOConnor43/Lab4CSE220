@@ -37,10 +37,7 @@ int main(int argc, const char * argv[])
     {
         token = scanner.getToken();
         print.printToken(token);
-        if (token->getCode() != PERIOD && token->getCode() != END_OF_FILE)
-        {
-            delete token;
-        }
+
     }
     while (token->getCode() != PERIOD && token->getCode() != END_OF_FILE);
 
